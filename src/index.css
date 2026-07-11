@@ -1,30 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Kannada:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Color System - Karnataka Inspector Dark Theme */
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #0f172a;
-  --bg-tertiary: #1e293b;
-  --accent-primary: #38bdf8; /* Sky blue */
-  --accent-secondary: #f43f5e; /* Rose */
-  --accent-success: #10b981; /* Emerald */
-  --accent-warning: #f59e0b; /* Amber */
-  --accent-purple: #a855f7; /* Purple */
+  /* Color System - Karnataka Police Cyber Dark Theme */
+  --bg-primary: #05070f;
+  --bg-secondary: #0a0e1c;
+  --bg-tertiary: #12182c;
+  --accent-primary: #00b4d8; /* Neon Cyan */
+  --accent-secondary: #ff0054; /* Cyber Pink/Rose */
+  --accent-success: #390099; /* Deep Purple for structure */
+  --accent-neon-green: #38b000; /* Neon green */
+  --accent-warning: #ffb703; /* Amber Warning */
+  --accent-purple: #9d4edd; /* Electric Violet */
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted: #475569;
   
-  --border-color: rgba(56, 189, 248, 0.15);
-  --border-glow: rgba(56, 189, 248, 0.3);
-  --glass-bg: rgba(15, 23, 42, 0.75);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
+  --border-color: rgba(0, 180, 216, 0.15);
+  --border-glow: rgba(0, 180, 216, 0.35);
+  --glass-bg: rgba(10, 14, 28, 0.85);
+  --glass-shadow: rgba(0, 0, 0, 0.6);
   
   --font-english: 'Outfit', sans-serif;
   --font-kannada: 'Noto Sans Kannada', sans-serif;
   
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --glow-box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  --glow-box-shadow: 0 0 20px rgba(0, 180, 216, 0.25);
+  --neon-shadow-pink: 0 0 20px rgba(255, 0, 84, 0.25);
 }
 
 * {
@@ -40,6 +42,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.5;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 180, 216, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 0, 84, 0.05) 0px, transparent 50%);
 }
 
 /* Custom Scrollbars */
@@ -56,22 +61,23 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
 }
 
 /* Glassmorphism Panel Class */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 8px 32px 0 var(--glass-shadow);
   transition: var(--transition-smooth);
 }
 
 .glass-panel:hover {
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.1);
+  border-color: var(--border-glow);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 180, 216, 0.15);
 }
 
 /* Glow Border & Badge classes */
@@ -83,43 +89,55 @@ body {
 .badge {
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   border: 1px solid transparent;
+  transition: var(--transition-smooth);
 }
 
 .badge-primary {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(0, 180, 216, 0.1);
   color: var(--accent-primary);
-  border-color: rgba(56, 189, 248, 0.25);
+  border-color: rgba(0, 180, 216, 0.25);
+}
+
+.badge-primary:hover {
+  background: rgba(0, 180, 216, 0.2);
+  box-shadow: 0 0 8px rgba(0, 180, 216, 0.3);
 }
 
 .badge-secondary {
-  background: rgba(244, 63, 94, 0.1);
+  background: rgba(255, 0, 84, 0.1);
   color: var(--accent-secondary);
-  border-color: rgba(244, 63, 94, 0.25);
+  border-color: rgba(255, 0, 84, 0.25);
+}
+
+.badge-secondary:hover {
+  background: rgba(255, 0, 84, 0.2);
+  box-shadow: 0 0 8px rgba(255, 0, 84, 0.3);
 }
 
 .badge-success {
-  background: rgba(16, 185, 129, 0.1);
-  color: var(--accent-success);
-  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(56, 176, 0, 0.1);
+  color: var(--accent-neon-green);
+  border-color: rgba(56, 176, 0, 0.25);
 }
 
 .badge-warning {
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(255, 183, 3, 0.1);
   color: var(--accent-warning);
-  border-color: rgba(245, 158, 11, 0.25);
+  border-color: rgba(255, 183, 3, 0.25);
 }
 
 .badge-purple {
-  background: rgba(168, 85, 247, 0.1);
+  background: rgba(157, 78, 221, 0.1);
   color: var(--accent-purple);
-  border-color: rgba(168, 85, 247, 0.25);
+  border-color: rgba(157, 78, 221, 0.25);
 }
 
 /* Kannada Specific Font Styling */
@@ -130,26 +148,45 @@ body {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.15); }
-  50% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.35); }
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 180, 216, 0.15); }
+  50% { box-shadow: 0 0 25px rgba(0, 180, 216, 0.4); }
+}
+
+@keyframes pulseGlowPink {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 84, 0.15); }
+  50% { box-shadow: 0 0 25px rgba(255, 0, 84, 0.4); }
 }
 
 @keyframes voiceWave {
   0%, 100% { height: 4px; }
-  50% { height: 20px; }
+  50% { height: 24px; }
+}
+
+@keyframes radarScan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 2s infinite ease-in-out;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.animate-pulse-glow-pink {
+  animation: pulseGlowPink 2.5s infinite ease-in-out;
+}
+
+.radar-sweep {
+  animation: radarScan 8s linear infinite;
+  transform-origin: center;
 }
 
 /* Standard Premium Buttons */
@@ -158,43 +195,59 @@ button.btn {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
   font-weight: 500;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: var(--transition-smooth);
   outline: none;
 }
 
 button.btn:hover:not(:disabled) {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(0, 180, 216, 0.08);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
 }
 
 button.btn:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 button.btn-primary {
-  background: var(--accent-primary);
-  color: var(--bg-primary);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #0077b6 100%);
+  color: #020408;
   border-color: var(--accent-primary);
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.2);
 }
 
 button.btn-primary:hover:not(:disabled) {
-  background: #7dd3fc;
-  color: var(--bg-primary);
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+  background: linear-gradient(135deg, #00c4f0 0%, #0096c7 100%);
+  color: #020408;
+  box-shadow: 0 4px 20px rgba(0, 180, 216, 0.45);
+}
+
+button.btn-secondary {
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, #c3003a 100%);
+  color: #fff;
+  border-color: var(--accent-secondary);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(255, 0, 84, 0.2);
+}
+
+button.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff2a6d 0%, #e00045 100%);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 0, 84, 0.45);
 }
 
 button.btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -206,27 +259,47 @@ button.btn:disabled {
 
 .tooltip-text {
   visibility: hidden;
-  width: 200px;
+  width: 220px;
   background-color: var(--bg-secondary);
   color: var(--text-primary);
   text-align: center;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 8px;
+  border-radius: 8px;
+  padding: 10px;
   position: absolute;
   z-index: 100;
-  bottom: 125%;
+  bottom: 130%;
   left: 50%;
-  margin-left: -100px;
+  margin-left: -110px;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.25s, transform 0.25s;
+  transform: translateY(5px);
   font-size: 0.75rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  pointer-events: none;
 }
 
 .tooltip-container:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
+  transform: translateY(0);
+}
+
+/* Input Fields styling */
+input.cyber-input {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+input.cyber-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(0, 180, 216, 0.2);
 }
 
 /* Print Styling for PDF Export */
@@ -245,5 +318,130 @@ button.btn:disabled {
     border: 1px solid #ccc !important;
     background: none !important;
     box-shadow: none !important;
+  }
+}
+
+/* Mobile Screen Layout Optimization (under 768px width) */
+@media (max-width: 768px) {
+  /* Shift navigation bar to bottom by reversing main content flex-direction */
+  .main-wrapper {
+    flex-direction: column-reverse !important;
+  }
+
+  /* Bottom tab navigation layout */
+  .app-nav {
+    width: 100% !important;
+    height: 62px !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-top: 1px solid var(--border-color) !important;
+    padding: 0 8px !important;
+    gap: 4px !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+  }
+
+  /* Bottom nav buttons styles override */
+  .app-nav .btn {
+    width: auto !important;
+    height: 52px !important;
+    flex: 1 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+  }
+
+  .app-nav .btn:hover:not(:disabled) {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Active navigation item line overlays */
+  .app-nav .btn.active-tab-chat {
+    border-bottom: 3px solid var(--accent-primary) !important;
+    background: rgba(0, 180, 216, 0.08) !important;
+  }
+  .app-nav .btn.active-tab-network {
+    border-bottom: 3px solid var(--accent-secondary) !important;
+    background: rgba(255, 0, 84, 0.08) !important;
+  }
+  .app-nav .btn.active-tab-hotspots {
+    border-bottom: 3px solid var(--accent-neon-green) !important;
+    background: rgba(56, 176, 0, 0.08) !important;
+  }
+  .app-nav .btn.active-tab-analytics {
+    border-bottom: 3px solid var(--accent-warning) !important;
+    background: rgba(255, 183, 3, 0.08) !important;
+  }
+  .app-nav .btn.active-tab-audits {
+    border-bottom: 3px solid var(--accent-purple) !important;
+    background: rgba(157, 78, 221, 0.08) !important;
+  }
+
+  /* Hide navigation title label */
+  .nav-title {
+    display: none !important;
+  }
+
+  /* Compact header styling */
+  .app-header {
+    padding: 8px 12px !important;
+  }
+
+  .header-subtitle {
+    display: none !important;
+  }
+
+  .header-clock {
+    display: none !important;
+  }
+
+  /* Compact main panel viewport padding */
+  .app-main-panel {
+    padding: 10px !important;
+  }
+
+  /* Suspect Dossier Overlay Drawer */
+  .app-sidebar {
+    position: fixed !important;
+    top: 56px !important; /* sits below header */
+    bottom: 62px !important; /* sits above bottom nav */
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    margin: 10px !important;
+    z-index: 100 !important;
+    height: calc(100vh - 138px) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 180, 216, 0.25) !important;
+  }
+
+  /* Hide inner action labels to create compact icon buttons */
+  .btn-label-text {
+    display: none !important;
+  }
+
+  /* Display visibility modifiers */
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
+  div.mobile-only {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-only {
+    display: block !important;
+  }
+  table.desktop-only {
+    display: table !important;
+  }
+  .mobile-only {
+    display: none !important;
   }
 }

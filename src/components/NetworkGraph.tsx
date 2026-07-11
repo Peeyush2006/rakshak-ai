@@ -76,16 +76,52 @@ export function NetworkGraph({ nodes, edges, onNodeSelect }: NetworkGraphProps) 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+    const viewBoxWidth = 800;
+    const viewBoxHeight = 550;
+    const scaledX = (x / rect.width) * viewBoxWidth;
+    const scaledY = (y / rect.height) * viewBoxHeight;
+
     setPositions(prev => ({
       ...prev,
       [draggingNodeId]: {
-        x: Math.max(30, Math.min(rect.width - 30, x)),
-        y: Math.max(30, Math.min(rect.height - 30, y))
+        x: Math.max(30, Math.min(viewBoxWidth - 30, scaledX)),
+        y: Math.max(30, Math.min(viewBoxHeight - 30, scaledY))
       }
     }));
   };
 
   const handleMouseUp = () => {
+    setDraggingNodeId(null);
+  };
+
+  const handleTouchStart = (nodeId: string, e: React.TouchEvent) => {
+    if (e.cancelable) e.preventDefault();
+    setDraggingNodeId(nodeId);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (!draggingNodeId || !svgRef.current) return;
+    
+    const touch = e.touches[0];
+    const rect = svgRef.current.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
+    const viewBoxWidth = 800;
+    const viewBoxHeight = 550;
+    const scaledX = (x / rect.width) * viewBoxWidth;
+    const scaledY = (y / rect.height) * viewBoxHeight;
+
+    setPositions(prev => ({
+      ...prev,
+      [draggingNodeId]: {
+        x: Math.max(30, Math.min(viewBoxWidth - 30, scaledX)),
+        y: Math.max(30, Math.min(viewBoxHeight - 30, scaledY))
+      }
+    }));
+  };
+
+  const handleTouchEnd = () => {
     setDraggingNodeId(null);
   };
 
@@ -232,11 +268,14 @@ export function NetworkGraph({ nodes, edges, onNodeSelect }: NetworkGraphProps) 
         {/* Network SVG Canvas */}
         <svg
           ref={svgRef}
+          viewBox="0 0 800 550"
           width="100%"
           height="100%"
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           style={{ cursor: draggingNodeId ? 'grabbing' : 'default' }}
         >
           {/* Defs for arrow markers */}
@@ -317,6 +356,7 @@ export function NetworkGraph({ nodes, edges, onNodeSelect }: NetworkGraphProps) 
                 key={node.id}
                 transform={`translate(${pos.x}, ${pos.y})`}
                 onMouseDown={() => handleMouseDown(node.id)}
+                onTouchStart={(e) => handleTouchStart(node.id, e)}
                 onMouseEnter={() => setHoveredNodeId(node.id)}
                 onMouseLeave={() => setHoveredNodeId(null)}
                 onClick={() => handleNodeClick(node)}

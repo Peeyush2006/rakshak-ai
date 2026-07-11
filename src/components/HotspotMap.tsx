@@ -151,7 +151,7 @@ export function HotspotMap() {
           background: 'radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 70%)',
           minHeight: '320px'
         }}>
-          <div style={{ position: 'relative', width: '300px', height: '360px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '300px', aspectRatio: '300/360' }}>
             <svg viewBox="0 0 300 360" width="100%" height="100%">
               {/* Karnataka State Base Outline Placeholder Grid */}
               <rect x="10" y="10" width="280" height="340" rx="15" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" strokeDasharray="4,4" />

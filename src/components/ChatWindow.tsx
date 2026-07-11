@@ -250,13 +250,13 @@ export function ChatWindow({ userRole, onSearchTriggered, onSelectCriminal, onSe
           {/* Language Toggle Button */}
           <button className="btn" onClick={toggleLanguage} style={{ fontSize: '0.75rem', padding: '6px 10px', height: '32px' }} title="Change language">
             <Globe size={13} color="var(--accent-primary)" />
-            {lang === 'en-IN' ? 'English' : 'ಕನ್ನಡ'}
+            <span className="btn-label-text">{lang === 'en-IN' ? 'English' : 'ಕನ್ನಡ'}</span>
           </button>
           
           {/* Export PDF Button */}
           <button className="btn" onClick={handleExportPDF} style={{ fontSize: '0.75rem', padding: '6px 10px', height: '32px' }} title="Export Case Briefing PDF">
             <FileText size={13} color="var(--accent-primary)" />
-            PDF Export
+            <span className="btn-label-text">PDF Export</span>
           </button>
         </div>
       </div>
@@ -534,7 +534,7 @@ export function ChatWindow({ userRole, onSearchTriggered, onSelectCriminal, onSe
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder={lang === 'en-IN' ? "Ask Rakshak AI (e.g. 'Show me Suresh Gowda associates')..." : "ಕೇಳಿ (ಉದಾಹರಣೆಗೆ: 'ಸುರೇಶ್ ಗೌಡನ ಸಹಚರರು ಯಾರು')..."}
+          placeholder={lang === 'en-IN' ? "Ask Rakshak AI..." : "ಕೇಳಿ (ರಕ್ಷಕ್ AI)..."}
           style={{
             flex: 1,
             background: 'var(--bg-tertiary)',

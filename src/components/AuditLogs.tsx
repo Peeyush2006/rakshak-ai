@@ -163,7 +163,8 @@ export function AuditLogs() {
 
       {/* Logs Table Area */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8rem' }}>
+        {/* Desktop View Table */}
+        <table className="desktop-only" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8rem' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-secondary)' }}>
               <th style={{ padding: '8px 12px' }}>LEDGER ID</th>
@@ -197,6 +198,49 @@ export function AuditLogs() {
             ))}
           </tbody>
         </table>
+
+        {/* Mobile View Cards */}
+        <div className="mobile-only" style={{ display: 'none', flexDirection: 'column', gap: '12px', width: '100%' }}>
+          {filteredLogs.map((log) => (
+            <div key={log.id} style={{
+              background: 'rgba(10, 14, 28, 0.7)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '10px',
+              padding: '12px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              borderColor: log.status === 'Blocked' ? 'rgba(255, 0, 84, 0.3)' : 'var(--border-color)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontFamily: 'monospace', color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '0.75rem' }}>
+                  {log.id}
+                </span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                  {log.timestamp}
+                </span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '6px' }}>
+                <div>
+                  <div style={{ fontWeight: 600, color: '#fff', fontSize: '0.85rem' }}>{log.user}</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{log.role}</div>
+                </div>
+                <div>{getStatusBadge(log.status)}</div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#fff' }}>{log.action}</div>
+                <div className="kannada-text" style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>{log.kannadaAction}</div>
+              </div>
+
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'rgba(0,0,0,0.25)', padding: '8px', borderRadius: '6px', lineHeight: 1.35 }}>
+                <strong style={{ fontSize: '0.6rem', color: 'var(--text-muted)', display: 'block', marginBottom: '2px', letterSpacing: '0.5px' }}>REASON / SCOPE:</strong>
+                {log.details}
+              </div>
+            </div>
+          ))}
+        </div>
 
         {filteredLogs.length === 0 && (
           <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-secondary)' }}>
