@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Shield, MessageSquare, Share2, Map, BarChart3, FileLock2, 
-  User, Lock, Eye, AlertOctagon, HelpCircle, ChevronRight, Activity 
+  User, Lock, Eye, AlertOctagon, HelpCircle, ChevronRight, Activity, Database
 } from 'lucide-react';
 import { ChatWindow } from './components/ChatWindow';
 import { NetworkGraph } from './components/NetworkGraph';
 import { HotspotMap } from './components/HotspotMap';
 import { TrendCharts } from './components/TrendCharts';
 import { AuditLogs } from './components/AuditLogs';
+import { DatabasePlayground } from './components/DatabasePlayground';
 import { SearchResult } from './hooks/useCrimeSearch';
 import { criminals, Criminal } from './data/criminals';
 import { cases, CaseRecord } from './data/cases';
 import { networkNodes, networkEdges } from './data/networks';
 
-type DashboardTab = 'chat' | 'network' | 'hotspots' | 'analytics' | 'audits';
+type DashboardTab = 'chat' | 'network' | 'hotspots' | 'analytics' | 'database' | 'audits';
 type UserRole = 'Chief of Police' | 'Lead Investigator' | 'Field Officer';
 
 export default function App() {
@@ -268,6 +269,26 @@ export default function App() {
           </button>
 
           <button 
+            onClick={() => handleTabChange('database')} 
+            className={`btn ${activeTab === 'database' ? 'active-tab-database' : ''}`} 
+            style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '14px',
+              padding: 0,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              background: activeTab === 'database' ? 'rgba(0, 180, 216, 0.12)' : 'transparent',
+              borderColor: activeTab === 'database' ? 'var(--accent-primary)' : 'rgba(255,255,255,0.03)',
+              boxShadow: activeTab === 'database' ? '0 0 15px rgba(0, 180, 216, 0.25)' : 'none'
+            }}
+            title="Database Schema & SQL Playground"
+          >
+            <Database size={20} color={activeTab === 'database' ? 'var(--accent-primary)' : 'var(--text-secondary)'} />
+            <span style={{ fontSize: '0.55rem', color: activeTab === 'database' ? 'var(--accent-primary)' : 'var(--text-muted)', marginTop: '4px', fontWeight: 600 }}>Database</span>
+          </button>
+
+          <button 
             onClick={() => handleTabChange('audits')} 
             className={`btn ${activeTab === 'audits' ? 'active-tab-audits' : ''}`} 
             style={{
@@ -322,6 +343,10 @@ export default function App() {
 
             {activeTab === 'analytics' && (
               <TrendCharts />
+            )}
+
+            {activeTab === 'database' && (
+              <DatabasePlayground />
             )}
 
             {activeTab === 'audits' && (

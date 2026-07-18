@@ -375,6 +375,10 @@ input.cyber-input:focus {
     border-bottom: 3px solid var(--accent-warning) !important;
     background: rgba(255, 183, 3, 0.08) !important;
   }
+  .app-nav .btn.active-tab-database {
+    border-bottom: 3px solid var(--accent-primary) !important;
+    background: rgba(0, 180, 216, 0.08) !important;
+  }
   .app-nav .btn.active-tab-audits {
     border-bottom: 3px solid var(--accent-purple) !important;
     background: rgba(157, 78, 221, 0.08) !important;
